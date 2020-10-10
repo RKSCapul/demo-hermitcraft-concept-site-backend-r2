@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 
 from controllers import hermits
 from controllers import livestreams
+from controllers import groups
 
 api.add_resource(hermits.AllUsers, '/api/hermit/all')
 api.add_resource(hermits.AllVideos, '/api/hermit/all/videos')
@@ -29,6 +30,11 @@ api.add_resource(livestreams.ActiveStatus, '/api/live/activehermits')
 
 api.add_resource(livestreams.Schedule, '/api/live/schedules')
 api.add_resource(livestreams.SlotStatus, '/api/live/status')
+
+api.add_resource(groups.UserAssociations, '/api/hermit/user/<string:_username>/groups')
+
+api.add_resource(groups.List, '/api/group/all')
+api.add_resource(groups.Members, '/api/group/<string:_name>')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
