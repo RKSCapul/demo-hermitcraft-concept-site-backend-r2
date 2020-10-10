@@ -16,5 +16,12 @@ CORS(app, origins="*", allow_headers=["Content-Type", "Access-Control-Allow-Cred
 api = Api(app)
 db = SQLAlchemy(app)
 
+from controllers import hermits
+
+api.add_resource(hermits.AllUsers, '/api/hermit/all')
+api.add_resource(hermits.AllVideos, '/api/hermit/all/videos')
+api.add_resource(hermits.Search, '/api/hermit/user/<string:_username>')
+api.add_resource(hermits.Videos, '/api/hermit/user/<string:_username>/videos')
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
