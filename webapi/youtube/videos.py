@@ -4,7 +4,7 @@ import sys
 from requests import get
 
 API_URL = 'https://www.googleapis.com/youtube/v3/'
-CHANNEL_PART = "playlistItems?part=snippet&maxResults=10"
+CHANNEL_PART = "playlistItems?part=snippet&maxResults="
 VIDEO_PART = "videos?part=statistics"
 KEY = '&key=' + os.environ.get('YOUTUBE_API_CL')
 
@@ -47,8 +47,8 @@ def organizeVideoData(videos, statistics):
   return mappedVideoData
 
 
-def fetchYouTubeChannelVideos(parameters):
-  dataUrl = API_URL + CHANNEL_PART + KEY + parameters
+def fetchYouTubeChannelVideos(parameters, payloadLength = 10):
+  dataUrl = API_URL + CHANNEL_PART + str(payloadLength) + KEY + parameters
   response = get(dataUrl)
   videos = response.json()
 
@@ -115,3 +115,20 @@ def getYouTubeChannelVideos(data):
 
   return organizedVideoData
   
+def getAllRecentYouTubeChannelVideos(data):
+  tmpYouTubeVideos = [];
+  allYouTubeVideos = [];
+
+  for channel in data:
+    parameters = getYouTubeRecentUploadsID(channel)
+    youtubeVideos = fetchYouTubeChannelVideos(parameters, 1)
+    
+    youtubeVideoParameters = getYouTubeVideoID(youtubeVideos)
+    youtubeStatistics = fetchYouTubeStatistics(youtubeVideoParameters)
+
+    videoData = organizeVideoData(youtubeVideos, youtubeStatistics)
+    tmpYouTubeVideos.insert(-1, videoData[0]);
+
+  allYouTubeVideos = sorted(tmpYouTubeVideos, key=lambda k: k['publishTime'].lower(), reverse=True)
+
+  return allYouTubeVideos

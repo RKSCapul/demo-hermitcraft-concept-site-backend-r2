@@ -19,6 +19,7 @@ db = SQLAlchemy(app)
 from controllers import hermits
 
 api.add_resource(hermits.AllUsers, '/api/hermit/all')
+api.add_resource(hermits.AllVideos, '/api/hermit/all/videos')
 api.add_resource(hermits.Search, '/api/hermit/user/<string:_username>')
 api.add_resource(hermits.Videos, '/api/hermit/user/<string:_username>/videos')
 

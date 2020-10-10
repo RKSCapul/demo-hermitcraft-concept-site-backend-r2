@@ -4,6 +4,7 @@ from .youtube import getYouTubeAccountPictureAll
 from .youtube import getYouTubeChannelLivestreamDataAll
 
 from .youtube import getYouTubeChannelVideos
+from .youtube import getAllRecentYouTubeChannelVideos
 
 from .twitch import getTwitchDataAll
 from .twitch import getTwitchDataUser
