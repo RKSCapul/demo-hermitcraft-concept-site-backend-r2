@@ -33,3 +33,8 @@ class users(db.Model):
       'status': active,
       'channel': channels
     }
+
+  def serializeYouTubeChannel(self):
+    return {
+      'youtube': self.youtube_channel
+    }
