@@ -38,3 +38,15 @@ class users(db.Model):
     return {
       'youtube': self.youtube_channel
     }
+
+  def serializeChannels(self):
+    channels = {}
+    channels['youtube'] = self.youtube_channel
+
+    if self.twitch_channel:
+      channels['twitch'] = self.twitch_channel
+
+    return {
+      'hermitCode': self.hermit_code,
+      'channel': channels
+    }

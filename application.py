@@ -17,11 +17,18 @@ api = Api(app)
 db = SQLAlchemy(app)
 
 from controllers import hermits
+from controllers import livestreams
 
 api.add_resource(hermits.AllUsers, '/api/hermit/all')
 api.add_resource(hermits.AllVideos, '/api/hermit/all/videos')
 api.add_resource(hermits.Search, '/api/hermit/user/<string:_username>')
 api.add_resource(hermits.Videos, '/api/hermit/user/<string:_username>/videos')
+
+api.add_resource(livestreams.User, '/api/hermit/user/<string:_username>/live')
+api.add_resource(livestreams.ActiveStatus, '/api/live/activehermits')
+
+api.add_resource(livestreams.Schedule, '/api/live/schedules')
+api.add_resource(livestreams.SlotStatus, '/api/live/status')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
