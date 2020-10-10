@@ -19,6 +19,7 @@ db = SQLAlchemy(app)
 from controllers import hermits
 
 api.add_resource(hermits.AllUsers, '/api/hermit/all')
+api.add_resource(hermits.Search, '/api/hermit/user/<string:_username>')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
