@@ -4,6 +4,7 @@ from flask_restful import Resource, abort
 
 from webapi import getYouTubeChannelDataAll
 from webapi import getYouTubeChannelDataUser
+from webapi import getYouTubeChannelVideos
 
 from data import users
 
@@ -33,3 +34,12 @@ class Search(Resource):
       return youtubeChannelData
     else:
       abort(404, message='User not found in database')
+
+class Videos(Resource):
+  def get(self, _username):
+    _users = users()
+    
+    data = _users.query.filter_by(username=_username).first()
+    youtubeChannel = data.serializeYouTubeChannel()
+
+    return getYouTubeChannelVideos(youtubeChannel)
