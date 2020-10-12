@@ -43,6 +43,9 @@ class schedule(db.Model):
   prevHour = -1
 
   def constructISOTime(self, date, time):
+    if time == "":
+      return ""
+
     hour = time.split(":")[0]
 
     # Initialize
