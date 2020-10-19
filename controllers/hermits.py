@@ -8,6 +8,7 @@ from webapi import getYouTubeChannelVideos
 from webapi import getAllRecentYouTubeChannelVideos
 
 from data import users
+from data import socials
 
 class AllUsers(Resource):
   def get(self):
@@ -53,3 +54,22 @@ class Videos(Resource):
     youtubeChannel = data.serializeYouTubeChannel()
 
     return getYouTubeChannelVideos(youtubeChannel)
+
+class Socials(Resource):
+  def get(self, _username):
+    _users = users()
+    _socials = socials()
+
+    data = _users.query.filter_by(username=_username).first()
+    
+    if not data:
+      abort(404, message='User not found in database')
+    
+    serialized = data.serializeHermitCode()
+    hermitCode = serialized['hermitCode']
+
+    _socialData = _socials.query.filter_by(hermit_code=hermitCode).all()
+    finalSocialData = [e.serialize() for e in _socialData]
+
+    return finalSocialData
+

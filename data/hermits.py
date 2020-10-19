@@ -34,6 +34,11 @@ class users(db.Model):
       'channel': channels
     }
 
+  def serializeHermitCode(self):
+    return {
+      'hermitCode': self.hermit_code,
+    }
+
   def serializeYouTubeChannel(self):
     return {
       'youtube': self.youtube_channel

@@ -5,3 +5,5 @@ from .livestreams import lists
 
 from .groups import groups
 from .groups import group_members
+
+from .socials import socials
